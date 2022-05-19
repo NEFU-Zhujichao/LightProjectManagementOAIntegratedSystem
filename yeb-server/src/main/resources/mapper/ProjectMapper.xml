@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xxx.server.mapper.ProjectMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xxx.server.pojo.Project">
+        <id column="id" property="id" />
+        <result column="projectName" property="projectName" />
+        <result column="projectRequirement" property="projectRequirement" />
+        <result column="projectAdmin" property="projectAdmin" />
+        <result column="projectCreateTime" property="projectCreateTime" />
+        <result column="projectStartTime" property="projectStartTime" />
+        <result column="projectEndTime" property="projectEndTime" />
+        <result column="period" property="period" />
+        <result column="enabled" property="enabled" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, projectName, projectRequirement, projectAdmin, projectCreateTime, projectStartTime, projectEndTime, period, enabled
+    </sql>
+
+    <select id="getAllProjectByPage" resultType="Project">
+        select *
+        from t_project
+        <where>
+            <if test="name != null and name != ''">
+                projectName like concat('%', #{name}, '%')
+            </if>
+        </where>
+        order by id
+    </select>
+</mapper>
